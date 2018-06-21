@@ -1,3 +1,5 @@
-SleepingForest/*.meta
-SleepingForest/*.log
-SleepingForest/*.info
+Assets/Scripts/Menu/*.meta
+Assets/Scripts/Tree/*.meta
+
+Library/*.log
+Library/*.info
