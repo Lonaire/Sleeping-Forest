@@ -1,9 +1,3 @@
-<<<<<<< HEAD
 SleepingForest/*.meta
 SleepingForest/*.log
 SleepingForest/*.info
-=======
-SleepingForest/.*meta
-SleepingForest/.*log
-SleepingForest/.*info
->>>>>>> 4700f42a9ce875da2304021fbbdec2aa07b80aad
