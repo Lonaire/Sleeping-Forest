@@ -1,5 +1,5 @@
-Assets/Scripts/Menu/*.meta
-Assets/Scripts/Tree/*.meta
+Assets/Sprites/Menu/*.meta
+Assets/Sprites/Tree/*.meta
 
 Library/*.log
 Library/*.info
