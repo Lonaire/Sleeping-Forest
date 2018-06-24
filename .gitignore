@@ -3,5 +3,9 @@ Assets/Sprites/Menu/*.meta
 Assets/Sprites/Tree/*.meta
 Assets/Scripts/*.meta
 
+# Library
 Library/*.log
 Library/*.info
+
+# Visual Studio Code cache directory
+.vscode/
