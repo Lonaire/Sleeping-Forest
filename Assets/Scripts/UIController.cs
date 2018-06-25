@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace SleepingForest
@@ -29,6 +30,7 @@ namespace SleepingForest
 		[SerializeField] Text sourcePrice;
 		[SerializeField] Text mutagenPrice;
 		[SerializeField] Text adkPrice;
+		[SerializeField] Text LeafsPerClick;
 
 
 		void Start () {
@@ -77,7 +79,7 @@ namespace SleepingForest
 			garPrice.text = improvements[(int)EnumImprovements.crazyGardener].Price.ToString();
 			sourcePrice.text = improvements[(int)EnumImprovements.undergroundSource].Price.ToString();
 			mutagenPrice.text = improvements[(int)EnumImprovements.growthMutagen].Price.ToString();
-			adkLvl.text = improvements[(int)EnumImprovements.adk].Price.ToString();
+			adkPrice.text = improvements[(int)EnumImprovements.adk].Price.ToString();
 			ferLvl.text = string.Format ("Ур. {0}", improvements[(int)EnumImprovements.fertilizer].Lvl.ToString());
 			garLvl.text = string.Format ("Ур. {0}", improvements[(int)EnumImprovements.crazyGardener].Lvl.ToString());
 			sourceLvl.text = string.Format("Ур. {0}", improvements[(int)EnumImprovements.undergroundSource].Lvl.ToString());
@@ -90,7 +92,7 @@ namespace SleepingForest
 
 			SetButtonEnabled(improve_fertilizer_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.fertilizer].Price);
 			SetButtonEnabled(improve_gardener_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.crazyGardener].Price);
-			SetButtonEnabled(improve_source_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.crazyGardener].Price);
+			SetButtonEnabled(improve_source_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.undergroundSource].Price);
 			SetButtonEnabled(improve_mutagen_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.growthMutagen].Price);
 			SetButtonEnabled(improve_adk_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.adk].Price);
 		}
@@ -106,6 +108,8 @@ namespace SleepingForest
 
 		public void OnClickTree () {
 			Game.self.leafs.leafCounter += Game.self.leafs.leafsPerClick;
+			LeafsPerClick.text = string.Format ("+{0}", Game.self.leafs.leafsPerClick.ToString());
+
 		}
 
 		public void OnClickImprovement (EnumImprovements impr) {

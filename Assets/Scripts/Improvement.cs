@@ -42,16 +42,13 @@ namespace SleepingForest
 				if (leaf_manager.leafCounter >= Price)
 				{
 					leaf_manager.leafCounter -= Price;
-					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
-					{
 						Value *= FERTILIZER_MULT;
-					}
 					Lvl++;
 					if (Game.self.improvements[(int)EnumImprovements.undergroundSource].Lvl > 0)
 						Value += Game.self.improvements[(int)EnumImprovements.undergroundSource].Value;
-					Game.self.leafs.leafsPerClick = Value;
+					leaf_manager.leafsPerClick += Value;
 				}
 			}
 		}
@@ -74,9 +71,7 @@ namespace SleepingForest
 					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
-					{
 						Value *= GARDENER_MULT;
-					}
 					Lvl++;
 				}
 			}
@@ -102,9 +97,7 @@ namespace SleepingForest
 					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
-					{
 						Value *= SOURCE_MULT;
-					}
 					Lvl++;
 				}
 			}
@@ -128,9 +121,7 @@ namespace SleepingForest
 					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
-					{
 						Value += MUTAGEN_ADDITOR;
-					}
 					Lvl++;
 				}
 			}
@@ -154,9 +145,7 @@ namespace SleepingForest
 					leaf_manager.leafsPerClick += Value;
 					Price *= ADK_PRICE_MULT;
 					if (Lvl > 0)
-					{
 						Value += ADK_ADDITOR;
-					}
 					Lvl++;
 				}
 			}

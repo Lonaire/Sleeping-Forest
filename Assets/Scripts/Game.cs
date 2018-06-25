@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SleepingForest
 {
 	public class Game : MonoBehaviour {
-		public const int MAX_IMPROVEMENTS = 5;
+		//public const int MAX_IMPROVEMENTS = 5;
 		public float treePercent = 0.0f;
 		public BigInt treeCount;
 		public static Game self = null;
