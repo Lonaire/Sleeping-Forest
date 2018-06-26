@@ -29,6 +29,7 @@ namespace SleepingForest
 
 	}
 
+	//Удобрение
 	public class Fertilizer : Improvement {
 		public Fertilizer() {
 			Value = new BigInt(10.0f);
@@ -54,6 +55,7 @@ namespace SleepingForest
 		}
 	}
 
+	//Сумасшедший садовник
 	public class CrazyGardener : Improvement {
 		public CrazyGardener() {
 			Value = new BigInt(100.0f);
@@ -79,6 +81,7 @@ namespace SleepingForest
 			
 	}
 
+	//Подземный источник
 	public class UndergroundSource : Improvement {
 		public UndergroundSource() {
 			Value = new BigInt(25.0f);
@@ -105,6 +108,7 @@ namespace SleepingForest
 		
 	}
 
+	//Мутаген роста
 	public class GrowthMutagen : Improvement {
 		public GrowthMutagen() {
 			Value = new BigInt(2.0f);
@@ -129,6 +133,7 @@ namespace SleepingForest
 
 	}
 
+	//АДК-1000
 	public class ADK : Improvement {
 		public ADK() {
 			Value = new BigInt(1.0f);

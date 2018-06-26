@@ -97,6 +97,7 @@ namespace SleepingForest
 			SetButtonEnabled(improve_adk_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.adk].Price);
 		}
 
+		//Индикатор недоступности улучшения
 		void SetButtonEnabled(Button button, bool is_enabled) {
 			var img = button.gameObject.GetComponent<Image>();
 			if (img != null) {

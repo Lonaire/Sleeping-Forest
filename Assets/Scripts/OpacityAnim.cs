@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class OpacityAnim : MonoBehaviour {
 	private Text clickInfo;
 	private Color color;

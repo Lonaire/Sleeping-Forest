@@ -13,7 +13,7 @@ namespace SleepingForest
 		public List<Improvement> improvements;
 
 		void Start () {
-			//
+			///
 		}
 
 		public void Init () {

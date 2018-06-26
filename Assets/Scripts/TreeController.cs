@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TreeController : MonoBehaviour {
+	
 	[SerializeField] private Sprite[] stages;
 	[SerializeField] private Button Tree;
 
