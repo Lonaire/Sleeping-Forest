@@ -46,12 +46,6 @@ namespace SleepingForest {
 				result.value /= 10;
 				result.exp++;
 			}
-			while (result.value < 1) {
-				result.value *= 10;
-				result.exp--;
-				if (result.exp < 0)
-					return new BigInt ();
-			}
 			return result;
 		}
 
@@ -63,11 +57,9 @@ namespace SleepingForest {
 				result.value /= 10;
 				result.exp++;
 			}
-			while (result.value < 1) {
+			while (result.value < 1 && result.exp > 0) {
 				result.value *= 10;
 				result.exp--;
-				if (result.exp < 0)
-					return new BigInt ();
 			}
 			return result;
 		}
@@ -213,6 +205,12 @@ namespace SleepingForest {
 				else
 					return false;
 			}
+		}
+
+		public static explicit operator float(BigInt bint) {
+			return Mathf.Clamp(
+				bint.exp > 0 ? bint.value * Mathf.Pow(10, bint.exp) : bint.value, 
+				-Mathf.Infinity, Mathf.Infinity);
 		}
 
 		public override string ToString ()

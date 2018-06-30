@@ -22,7 +22,7 @@ namespace SleepingForest
 		public const float GARDENER_MULT = 1.17f;
 		public const float PRICE_MULT = 1.3f;
 		public const float ADK_PRICE_MULT = 1.5f;
-		public const float MUTAGEN_ADDITOR = 0.05f;
+		public const float MUTAGEN_ADDITOR = 0.0005f;
 		public const int ADK_ADDITOR = 1;
 
 		public abstract void Improve();
@@ -49,7 +49,7 @@ namespace SleepingForest
 					Lvl++;
 					if (Game.self.improvements[(int)EnumImprovements.undergroundSource].Lvl > 0)
 						Value += Game.self.improvements[(int)EnumImprovements.undergroundSource].Value;
-					leaf_manager.leafsPerClick += Value;
+					leaf_manager.leafsPerClick = Value + new BigInt(1.0f);
 				}
 			}
 		}
@@ -58,7 +58,7 @@ namespace SleepingForest
 	//Сумасшедший садовник
 	public class CrazyGardener : Improvement {
 		public CrazyGardener() {
-			Value = new BigInt(100.0f);
+			Value = new BigInt(0.0f);
 			Price = new BigInt(170.0f);
 		}
 
@@ -74,6 +74,8 @@ namespace SleepingForest
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value *= GARDENER_MULT;
+					else
+						Value = new BigInt(100.0f);
 					Lvl++;
 				}
 			}
@@ -111,7 +113,7 @@ namespace SleepingForest
 	//Мутаген роста
 	public class GrowthMutagen : Improvement {
 		public GrowthMutagen() {
-			Value = new BigInt(2.0f);
+			Value = new BigInt(0.02f);
 			Price = new BigInt(540.0f);
 		}
 
@@ -126,6 +128,7 @@ namespace SleepingForest
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value += MUTAGEN_ADDITOR;
+					Game.self.treePercentPerClick = (float)Value;
 					Lvl++;
 				}
 			}

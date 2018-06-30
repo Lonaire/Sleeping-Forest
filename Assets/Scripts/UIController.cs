@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace SleepingForest
 {
 	public class UIController : MonoBehaviour {
-
+		[SerializeField] Slider slider;
 		[SerializeField] Button tree_button;
 		[SerializeField] Button improve_fertilizer_button;
 		[SerializeField] Button improve_gardener_button;
@@ -31,9 +31,11 @@ namespace SleepingForest
 		[SerializeField] Text mutagenPrice;
 		[SerializeField] Text adkPrice;
 		[SerializeField] Text LeafsPerClick;
-
+		[SerializeField] Text TreeCount;
+		public BigInt treeCount = null;
 
 		void Start () {
+			treeCount = new BigInt();
 			Game.self.Init();
 
 			var button = tree_button.GetComponent<Button>();
@@ -70,10 +72,11 @@ namespace SleepingForest
 			var improvements = Game.self.improvements;
 
 			leafLabel.text = Game.self.leafs.leafCounter.ToString();
+			TreeCount.text = treeCount.ToString();
 			ferDescription.text = string.Format ("Кроны становятся гуще.\nКоличество листьев увеличено на {0} ед.", improvements[(int)EnumImprovements.fertilizer].Value.ToString());
 			garDescription.text = string.Format ("Вы можете спать спокойно.\nКоличество листьев + {0} / сек.", improvements[(int)EnumImprovements.crazyGardener].Value.ToString());
 			sourceDescription.text = string.Format ("Полезные свойства впитываются быстрее.\nПольза от удобрения увеличена на {0} ед.", improvements[(int)EnumImprovements.undergroundSource].Value.ToString());
-			mutagenDescription.text = string.Format("Вызывает мутации.\nДеревья растут в {0:0.00} раза быстрее.", improvements[(int)EnumImprovements.growthMutagen].Value.ToString());
+			mutagenDescription.text = string.Format("Вызывает мутации.\nДеревья растут в {0:0.00} раза быстрее.", ((float)improvements[(int)EnumImprovements.growthMutagen].Value) * 100);
 			adkDescription.text = string.Format("Аппарат для клонирования.\nМножитель деревьев + {0}.", improvements[(int)EnumImprovements.adk].Value.ToString());
 			ferPrice.text = improvements[(int)EnumImprovements.fertilizer].Price.ToString();
 			garPrice.text = improvements[(int)EnumImprovements.crazyGardener].Price.ToString();
@@ -111,6 +114,15 @@ namespace SleepingForest
 			Game.self.leafs.leafCounter += Game.self.leafs.leafsPerClick;
 			LeafsPerClick.text = string.Format ("+{0}", Game.self.leafs.leafsPerClick.ToString());
 
+			var mutagen = Game.self.improvements[(int)EnumImprovements.growthMutagen];
+			slider.value = Mathf.Clamp(slider.value + Game.self.treePercentPerClick, 0.0f, 1.0f);
+			if (slider.value == 1.0f) {
+				slider.value = 0;
+				if (Game.self.improvements[(int)EnumImprovements.adk].Lvl > 0)
+					treeCount += Game.self.improvements[(int)EnumImprovements.adk].Value;
+				else
+					treeCount += 1.0f;
+			}
 		}
 
 		public void OnClickImprovement (EnumImprovements impr) {
