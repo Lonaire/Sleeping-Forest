@@ -32,10 +32,15 @@ namespace SleepingForest
 		[SerializeField] Text adkPrice;
 		[SerializeField] Text LeafsPerClick;
 		[SerializeField] Text TreeCount;
-		public BigInt treeCount = null;
+		[SerializeField] Text EventTime;
+		[SerializeField] Image EventIcon;
+		[SerializeField] Sprite multiplier_icon;	
+		[SerializeField] Sprite termites_icon;
+		[SerializeField] Sprite fire_icon;
+
+		private const int TREE_ADDITOR = 1000;
 
 		void Start () {
-			treeCount = new BigInt();
 			Game.self.Init();
 
 			var button = tree_button.GetComponent<Button>();
@@ -72,7 +77,8 @@ namespace SleepingForest
 			var improvements = Game.self.improvements;
 
 			leafLabel.text = Game.self.leafs.leafCounter.ToString();
-			TreeCount.text = treeCount.ToString();
+			TreeCount.text = Game.self.treeCount.ToString();
+			//
 			ferDescription.text = string.Format ("Кроны становятся гуще.\nКоличество листьев увеличено на {0} ед.", improvements[(int)EnumImprovements.fertilizer].Value.ToString());
 			garDescription.text = string.Format ("Вы можете спать спокойно.\nКоличество листьев + {0} / сек.", improvements[(int)EnumImprovements.crazyGardener].Value.ToString());
 			sourceDescription.text = string.Format ("Полезные свойства впитываются быстрее.\nПольза от удобрения увеличена на {0} ед.", improvements[(int)EnumImprovements.undergroundSource].Value.ToString());
@@ -99,8 +105,7 @@ namespace SleepingForest
 			SetButtonEnabled(improve_mutagen_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.growthMutagen].Price);
 			SetButtonEnabled(improve_adk_button, Game.self.leafs.leafCounter >= improvements[(int)EnumImprovements.adk].Price);
 		}
-
-		//Индикатор недоступности улучшения
+		
 		void SetButtonEnabled(Button button, bool is_enabled) {
 			var img = button.gameObject.GetComponent<Image>();
 			if (img != null) {
@@ -118,10 +123,12 @@ namespace SleepingForest
 			slider.value = Mathf.Clamp(slider.value + Game.self.treePercentPerClick, 0.0f, 1.0f);
 			if (slider.value == 1.0f) {
 				slider.value = 0;
-				if (Game.self.improvements[(int)EnumImprovements.adk].Lvl > 0)
-					treeCount += Game.self.improvements[(int)EnumImprovements.adk].Value;
-				else
-					treeCount += 1.0f;
+				if (Game.self.ActiveEvent != EnumActiveEvent.Termites) {
+					if (Game.self.improvements[(int)EnumImprovements.adk].Lvl > 0)
+						Game.self.treeCount += Game.self.improvements[(int)EnumImprovements.adk].Value;
+					Game.self.treeCount += 1.0f;
+					Game.self.leafs.leafCounter += (Game.self.treeCount * TREE_ADDITOR);
+				}
 			}
 		}
 
@@ -132,6 +139,25 @@ namespace SleepingForest
 			var improvement = Game.self.improvements[(int)impr];
 			if(improvement != null)
 				improvement.Improve();
+		}
+
+		public void OnEventChanged(EnumActiveEvent e) {
+			switch (e) {
+				case EnumActiveEvent.Multiplier:
+					EventIcon.sprite = multiplier_icon;
+					break;
+				case EnumActiveEvent.Termites:
+					EventIcon.sprite = termites_icon;
+					break;
+				case EnumActiveEvent.Fire:
+					EventIcon.sprite = fire_icon;
+					break;
+			}
+			EventIcon.gameObject.SetActive(e != EnumActiveEvent.None);
+		}
+
+		public void EventTick(int time) {
+			EventTime.text = string.Format("{0} сек", time);
 		}
 	}
 }

@@ -7,6 +7,10 @@ namespace SleepingForest {
 		public float value { get; set; }
 		public int exp { get; set; }
 
+		public static BigInt Empty { 
+			get { return new BigInt(); }
+		}
+
 		public BigInt() {
 			value = 0;
 			exp = 0;

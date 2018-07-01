@@ -28,7 +28,6 @@ namespace SleepingForest
 		public abstract void Improve();
 
 	}
-
 	//Удобрение
 	public class Fertilizer : Improvement {
 		public Fertilizer() {
@@ -47,9 +46,9 @@ namespace SleepingForest
 					if (Lvl > 0)
 						Value *= FERTILIZER_MULT;
 					Lvl++;
-					if (Game.self.improvements[(int)EnumImprovements.undergroundSource].Lvl > 0)
-						Value += Game.self.improvements[(int)EnumImprovements.undergroundSource].Value;
 					leaf_manager.leafsPerClick = Value + new BigInt(1.0f);
+					if (Game.self.ActiveEvent == EnumActiveEvent.Multiplier)
+						Game.self.leafs.leafsPerClick += Game.self.leafs.leafsPerClick * Game.self.event_multiplier;
 				}
 			}
 		}
@@ -58,7 +57,7 @@ namespace SleepingForest
 	//Сумасшедший садовник
 	public class CrazyGardener : Improvement {
 		public CrazyGardener() {
-			Value = new BigInt(0.0f);
+			Value = new BigInt(100.0f);
 			Price = new BigInt(170.0f);
 		}
 
@@ -74,8 +73,6 @@ namespace SleepingForest
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value *= GARDENER_MULT;
-					else
-						Value = new BigInt(100.0f);
 					Lvl++;
 				}
 			}
@@ -96,14 +93,18 @@ namespace SleepingForest
 			{
 				if (leaf_manager.leafCounter >= Price)
 				{
-					if (Game.self.improvements[(int)EnumImprovements.fertilizer].Lvl == 0)
+					var fertilizer = Game.self.improvements[(int)EnumImprovements.fertilizer];
+					if (fertilizer.Lvl == 0)
 						return;
 					leaf_manager.leafCounter -= Price;
-					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value *= SOURCE_MULT;
 					Lvl++;
+					fertilizer.Value += Value;
+					leaf_manager.leafsPerClick = fertilizer.Value + new BigInt(1.0f);
+					if (Game.self.ActiveEvent == EnumActiveEvent.Multiplier)
+						Game.self.leafs.leafsPerClick += Game.self.leafs.leafsPerClick * Game.self.event_multiplier;
 				}
 			}
 		}
