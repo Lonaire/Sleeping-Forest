@@ -13,12 +13,10 @@ namespace SleepingForest
 
 	public class Game : MonoBehaviour {
 		public UIController ui_controller;
-		//public const int MAX_IMPROVEMENTS = 5;
 		private float time = 20;
 		public float treePercentPerClick = 0.01f;
 
 		public BigInt event_multiplier;
-		private BigInt event_termites;
 		private BigInt event_fires;
 		public static Game self = null;
 		public Leafs leafs;
@@ -67,9 +65,8 @@ namespace SleepingForest
 			}
 		}
 
-		void GenerateEvent(int chance = 10) {
+		void GenerateEvent(int chance = 5) {
 			event_multiplier = new BigInt(0.1f);
-			event_termites = new BigInt(0.05f);
 			event_fires = new BigInt(0.05f);
 
 			var num = Random.Range(0, 100);

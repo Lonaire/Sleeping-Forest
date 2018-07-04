@@ -69,7 +69,6 @@ namespace SleepingForest
 				if (leaf_manager.leafCounter >= Price)
 				{
 					leaf_manager.leafCounter -= Price;
-					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value *= GARDENER_MULT;
@@ -125,7 +124,6 @@ namespace SleepingForest
 				if (leaf_manager.leafCounter >= Price)
 				{
 					leaf_manager.leafCounter -= Price;
-					leaf_manager.leafsPerClick += Value;
 					Price *= PRICE_MULT;
 					if (Lvl > 0)
 						Value += MUTAGEN_ADDITOR;
@@ -151,7 +149,6 @@ namespace SleepingForest
 				if (leaf_manager.leafCounter >= Price)
 				{
 					leaf_manager.leafCounter -= Price;
-					leaf_manager.leafsPerClick += Value;
 					Price *= ADK_PRICE_MULT;
 					if (Lvl > 0)
 						Value += ADK_ADDITOR;

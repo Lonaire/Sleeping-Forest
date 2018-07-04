@@ -118,16 +118,18 @@ namespace SleepingForest
 		public void OnClickTree () {
 			Game.self.leafs.leafCounter += Game.self.leafs.leafsPerClick;
 			LeafsPerClick.text = string.Format ("+{0}", Game.self.leafs.leafsPerClick.ToString());
-
-			var mutagen = Game.self.improvements[(int)EnumImprovements.growthMutagen];
-			slider.value = Mathf.Clamp(slider.value + Game.self.treePercentPerClick, 0.0f, 1.0f);
-			if (slider.value == 1.0f) {
-				slider.value = 0;
-				if (Game.self.ActiveEvent != EnumActiveEvent.Termites) {
-					if (Game.self.improvements[(int)EnumImprovements.adk].Lvl > 0)
-						Game.self.treeCount += Game.self.improvements[(int)EnumImprovements.adk].Value;
-					Game.self.treeCount += 1.0f;
-					Game.self.leafs.leafCounter += (Game.self.treeCount * TREE_ADDITOR);
+			
+			if (Game.self.ActiveEvent != EnumActiveEvent.Termites) {
+				slider.value = Mathf.Clamp(slider.value + Game.self.treePercentPerClick, 0.0f, 1.0f);
+				if (slider.value == 1.0f) {
+					slider.value = 0;
+					var adk = Game.self.improvements[(int)EnumImprovements.adk];
+					BigInt tree_count = BigInt.Empty;
+					if (adk.Lvl > 0)
+						tree_count += adk.Value;
+					tree_count += 1.0f;
+					Game.self.leafs.leafCounter += (tree_count * TREE_ADDITOR);
+					Game.self.treeCount += tree_count;
 				}
 			}
 		}
