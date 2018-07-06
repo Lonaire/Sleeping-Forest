@@ -23,7 +23,7 @@ namespace SleepingForest
 		public const float PRICE_MULT = 1.3f;
 		public const float ADK_PRICE_MULT = 1.5f;
 		public const float MUTAGEN_ADDITOR = 0.0005f;
-		public const int ADK_ADDITOR = 1;
+		public const float ADK_ADDITOR = 1.0f;
 
 		public abstract void Improve();
 

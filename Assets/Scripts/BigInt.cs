@@ -229,5 +229,18 @@ namespace SleepingForest {
 				return string.Format ("{0:0.00}{1}", value * Mathf.Pow (10, exp % 3), prefixes[exp_idx]);
 			}
 		}
+
+		public string ToStringRounded ()
+		{
+			char[] prefixes = new char[] { 'K', 'M', 'B', 'T', 'q', 'Q', 's', 'S', 'O', 'N', 'd', 'U', 'D', '!', '@', '#', '$', '%', '^', '&', '*' };
+			if (exp < 3)
+				return string.Format ("{0}", Mathf.RoundToInt(value * Mathf.Pow (10, exp)));
+			else {
+				int exp_idx = Mathf.RoundToInt((exp - (exp % 3)) / 3) - 1;
+				if (exp_idx > prefixes.Length - 1)
+					exp_idx = prefixes.Length - 1;
+				return string.Format ("{0:0.0}{1}", value * Mathf.Pow (10, exp % 3), prefixes[exp_idx]);
+			}
+		}
 	}
 }

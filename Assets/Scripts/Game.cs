@@ -13,6 +13,7 @@ namespace SleepingForest
 
 	public class Game : MonoBehaviour {
 		public UIController ui_controller;
+		public GameObject sound_control;
 		private float time = 20;
 		public float treePercentPerClick = 0.01f;
 
@@ -75,19 +76,16 @@ namespace SleepingForest
 
 			num = Random.Range(0, 100);
 			if (num >= 0 && num <= 29) {
-				//Множитель
 				Debug.Log("Множитель активен");
 				StartCoroutine(DoMultiplierEvent());
 			}
 			else if (num >= 30 && num <= 55) {
-				//Нашествие термитов
 				if (treeCount > BigInt.Empty) {
 					Debug.Log("Термиты активны");
 					StartCoroutine(DoTermitesEvent());
 				}
 			}
 			else if (num >= 56 && num < 100) {
-				//Пожары
 				if (leafs.leafCounter > BigInt.Empty) {
 					Debug.Log("Пожары активны");
 					StartCoroutine(DoFireEvent());
@@ -146,6 +144,11 @@ namespace SleepingForest
 
 			ActiveEvent = EnumActiveEvent.None;
 			Debug.Log("Event is not active");
+		}
+
+		public void ToggleSound() {
+			sound_control.SetActive(!sound_control.active);
+			ui_controller.SetSoundIcon(sound_control.active);
 		}
 	}
 

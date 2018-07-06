@@ -14,6 +14,7 @@ namespace SleepingForest
 		[SerializeField] Button improve_source_button;
 		[SerializeField] Button improve_mutagen_button;
 		[SerializeField] Button improve_adk_button;
+		[SerializeField] Button sound_toggle;
 		[SerializeField] Text leafLabel;
 		[SerializeField] Text ferDescription;
 		[SerializeField] Text garDescription;
@@ -37,6 +38,8 @@ namespace SleepingForest
 		[SerializeField] Sprite multiplier_icon;	
 		[SerializeField] Sprite termites_icon;
 		[SerializeField] Sprite fire_icon;
+		[SerializeField] Sprite sound_on_icon;
+		[SerializeField] Sprite sound_off_icon;
 
 		private const int TREE_ADDITOR = 1000;
 
@@ -66,6 +69,9 @@ namespace SleepingForest
 			button = improve_adk_button.GetComponent<Button>();
 			if (button != null)
 				button.onClick.AddListener(Game.self.improvements[(int)EnumImprovements.adk].Improve);
+
+			if (sound_toggle != null)
+				sound_toggle.onClick.AddListener(Game.self.ToggleSound);
 		}
 		
 		void Update () {
@@ -77,8 +83,7 @@ namespace SleepingForest
 			var improvements = Game.self.improvements;
 
 			leafLabel.text = Game.self.leafs.leafCounter.ToString();
-			TreeCount.text = Game.self.treeCount.ToString();
-			//
+			TreeCount.text = Game.self.treeCount.ToStringRounded();
 			ferDescription.text = string.Format ("Кроны становятся гуще.\nКоличество листьев увеличено на {0} ед.", improvements[(int)EnumImprovements.fertilizer].Value.ToString());
 			garDescription.text = string.Format ("Вы можете спать спокойно.\nКоличество листьев + {0} / сек.", improvements[(int)EnumImprovements.crazyGardener].Value.ToString());
 			sourceDescription.text = string.Format ("Полезные свойства впитываются быстрее.\nПольза от удобрения увеличена на {0} ед.", improvements[(int)EnumImprovements.undergroundSource].Value.ToString());
@@ -113,6 +118,12 @@ namespace SleepingForest
 				img.color = color;
 			}
 			button.enabled = is_enabled;
+		}
+
+		public void SetSoundIcon(bool is_on) {
+			var img = sound_toggle.GetComponent<Image>();
+			if (img != null)
+				img.sprite = is_on ? sound_on_icon : sound_off_icon;
 		}
 
 		public void OnClickTree () {
